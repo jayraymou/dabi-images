@@ -18,7 +18,7 @@ function request(source, site, regex) {
                         // grabs a random post
                         let post = body[Math.floor(Math.random() *body.length)].data;
                         // checks if the post url ends with an image extension
-                        switch ((/(\.jpg|\.png|\.gifv|\.gif|\.mp4|\.jpeg)$/ig).test(post.url)) {
+                        switch ((/(\.jpg|\.png|\.gif|\.jpeg)$/ig).test(post.url)) {
                             case true:
                                 // resolves the payload with all the juicy data
                                 let payload = {
@@ -30,7 +30,41 @@ function request(source, site, regex) {
                                 };
                                 resolve(payload);
                             break;
-   
+                            default:
+                                // self explanatory (hopefully)
+                                switch (post.is_video) {
+                                    case true:
+                                        // tries to get another post if it's a video (this was used for discord and we can't embed videos)
+                                        ExtractRedditUrl(body, tries);
+                                    break;
+                                    default:
+                                        switch (post.media) {
+                                            case null:
+                                                // if media is null try again
+                                                ExtractRedditUrl(body, tries);
+                                            break;
+                                            default:
+                                                // if the media thumbnail is from gfycat try again (thumbnails from gfycat are really low res)
+                                                switch (post.media.oembed.thumbnail_url.includes("gfycat")) {
+                                                    case false:
+                                                        // resolve payload
+                                                        let payload = {
+                                                            url: post.media.oembed.thumbnail_url,
+                                                            source: post.permalink,
+                                                            nsfw: true,
+                                                            tries: tries,
+                                                            time: `${((Date.now() - date) / 1000).toFixed(2)}s`
+                                                        };
+                                                        resolve(payload);
+                                                    break;
+                                                    // tries again
+                                                    default: ExtractRedditUrl(body, tries);
+                                                }
+                                            break;
+                                        }
+                                    break;
+                                }
+                            break;
                         }
                     }
                     // just some randomness
@@ -142,42 +176,6 @@ function request(source, site, regex) {
                                     // resolves the load ÒwÓ
                                     resolve(payload);
                                 break;
-                                    default:
-                                // self explanatory (hopefully)
-                                switch (post.is_video) {
-                                    case true:
-                                        // tries to get another post if it's a video (this was used for discord and we can't embed videos)
-                                        ExtractRedditUrl(body, tries);
-                                    break;
-                                    default:
-                                        switch (post.media) {
-                                            case null:
-                                                // if media is null try again
-                                                ExtractRedditUrl(body, tries);
-                                            break;
-                                            default:
-                                                // if the media thumbnail is from gfycat try again (thumbnails from gfycat are really low res)
-                                                switch (post.media.oembed.thumbnail_url.includes("gfycat")) {
-                                                    case false:
-                                                        // resolve payload
-                                                        let payload = {
-                                                            url: post.media.oembed.thumbnail_url,
-                                                            source: post.permalink,
-                                                            nsfw: true,
-                                                            tries: tries,
-                                                            time: `${((Date.now() - date) / 1000).toFixed(2)}s`
-                                                        };
-                                                        resolve(payload);
-                                                    break;
-                                                    // tries again
-                                                    default: ExtractRedditUrl(body, tries);
-                                                }
-                                            break;
-                                        }
-                                    break;
-                                }
-                            break;
-                            }
                                 default:
                                     ExtractGelbooruUrl(body, tries);
                                 break;
