@@ -15,7 +15,7 @@ class RealShit {
         return requestHandler.makeRequest("reddit", subreddits[Math.floor(Math.random() *subreddits.length)]);
     }
     meme() {
-        let subreddits = ["dankmeme"];
+        let subreddits = ["dankmemes"];
         return requestHandler.makeRequest("reddit", subreddits[Math.floor(Math.random() *subreddits.length)]);
     }
     autofellatio() {
