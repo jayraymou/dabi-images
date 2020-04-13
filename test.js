@@ -17,7 +17,7 @@ const index = require("./index"), client = new index.Client();
     }
     func = "client.nsfw.real.thighs() =>";
     try {
-        let data = await client.nsfw.real.thighs();
+        let data = await client.nsfw.real.titty();
         console.log(func, data);
     } catch (err) {
         console.log(func, err);
@@ -36,9 +36,9 @@ const index = require("./index"), client = new index.Client();
     } catch (err) {
         console.log(func, err);
     }
-    func = "client.nsfw.hentai.thighs() =>";
+    func = "client.nsfw.hentai.titty() =>";
     try {
-        let data = await client.nsfw.hentai.thighs();
+        let data = await client.nsfw.hentai.titty();
         console.log(func, data);
     } catch (err) {
         console.log(func, err);
