@@ -18,7 +18,7 @@ function request(source, site, regex) {
                         // grabs a random post
                         let post = body[Math.floor(Math.random() *body.length)].data;
                         // checks if the post url ends with an image extension
-                        switch ((/(\.jpg|\.png|\.gif|\.jpeg)$/ig).test(post.url)) {
+                        switch ((/(\.jpg|\.png|\.gif|\|\.mp4|\.jpeg)$/ig).test(post.url)) {
                             case true:
                                 // resolves the payload with all the juicy data
                                 let payload = {
