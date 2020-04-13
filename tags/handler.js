@@ -177,6 +177,7 @@ function request(source, site, regex) {
                                     break;
                                 }
                             break;
+                            }
                                 default:
                                     ExtractGelbooruUrl(body, tries);
                                 break;
