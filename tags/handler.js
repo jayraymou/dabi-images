@@ -18,7 +18,7 @@ function request(source, site, regex) {
                         // grabs a random post
                         let post = body[Math.floor(Math.random() *body.length)].data;
                         // checks if the post url ends with an image extension
-                        switch ((/(\.jpg|\.png|\.gif|\.jpeg)$/ig).test(post.url)) {
+                        switch ((/(\.jpg|\.png|\.gifv|\.mp4|\.gif|\.jpeg)$/ig).test(post.url)) {
                             case true:
                                 // resolves the payload with all the juicy data
                                 let payload = {
@@ -45,7 +45,7 @@ function request(source, site, regex) {
                                             break;
                                             default:
                                                 // if the media thumbnail is from gfycat try again (thumbnails from gfycat are really low res)
-                                                switch (post.media.oembed.thumbnail_url.includes("gfycat")) {
+                                                switch (post.media.oembed.thumbnail_url.includes("gfcat")) {
                                                     case false:
                                                         // resolve payload
                                                         let payload = {
