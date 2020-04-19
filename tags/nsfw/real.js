@@ -23,7 +23,7 @@ class RealShit {
         return requestHandler.makeRequest("reddit", subreddits[Math.floor(Math.random() *subreddits.length)]);
     }
     wholesome() {
-        let subreddits = ["wholesome"];
+        let subreddits = ["wholesomememes"];
         return requestHandler.makeRequest("reddit", subreddits[Math.floor(Math.random() *subreddits.length)]);
     }
     ass() {
