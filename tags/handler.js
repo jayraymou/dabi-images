@@ -45,19 +45,7 @@ function request(source, site, regex) {
                                             break;
                                             default:
                                                 // if the media thumbnail is from gfycat try again (thumbnails from gfycat are really low res)
-                                                switch (post.media.oembed && post.media.oembed.thumbnail_url.includes("gfycat")) {
-                                                    case false:
-                                                        // resolve payload
-                                                        let payload = {
-                                                            url: post.media.oembed.thumbnail_url,
-                                                            source: post.permalink,
-                                                            nsfw: true,
-                                                            tries: tries,
-                                                            time: `${((Date.now() - date) / 1000).toFixed(2)}s`
-                                                        };
-                                                        resolve(payload);
-                                                    break;
-                                                    // tries again
+                                                
                                                     default: ExtractRedditUrl(body, tries);
                                                 }
                                             break;
