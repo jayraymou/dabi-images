@@ -45,7 +45,7 @@ function request(source, site, regex) {
                                             break;
                                             default:
                                                 // if the media thumbnail is from gfycat try again (thumbnails from gfycat are really low res)
-                                                switch (post.media.oembed.thumbnail_url.includes("gfycat")) {
+                                                switch (post.media.oembed && post.media.oembed.thumbnail_url.includes("gfycat")) {
                                                     case false:
                                                         // resolve payload
                                                         let payload = {
