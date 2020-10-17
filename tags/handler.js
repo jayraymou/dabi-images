@@ -43,12 +43,8 @@ function request(source, site, regex) {
                                                 // if media is null try again
                                                 ExtractRedditUrl(body, tries);
                                             break;
-                                            default:
-                                                // if the media thumbnail is from gfycat try again (thumbnails from gfycat are really low res)
-                                                
-                                                    default: ExtractRedditUrl(body, tries);
-                                                }
-                                            break;
+                                            
+                                            
                                         }
                                     break;
                                 }
