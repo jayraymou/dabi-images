@@ -43,7 +43,22 @@ function request(source, site, regex) {
                                                 // if media is null try again
                                                 ExtractRedditUrl(body, tries);
                                             break;
-                                            
+                                            default:
+                                                // if the media thumbnail is from gfycat try again (thumbnails from gfycat are really low res)
+                                                switch (post.media.some(0=>o.oembed.thumbnail_url === "gfycat")) {
+                                                    case false:
+                                                        // resolve payload
+                                                        let payload = {
+                                                            url: post.media.oembed.thumbnail_url,
+                                                            source: post.permalink,
+                                                            nsfw: true,
+                                                            tries: tries,
+                                                            time: `${((Date.now() - date) / 1000).toFixed(2)}s`
+                                                        };
+                                                        resolve(payload);
+                                                    break;
+                                                    // tries again
+                                                    default: ExtractRedditUrl(body, tries);
                                             
                                         }
                                     break;
