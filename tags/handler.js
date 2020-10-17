@@ -45,7 +45,7 @@ function request(source, site, regex) {
                                             break;
                                             default:
                                                 // if the media thumbnail is from gfycat try again (thumbnails from gfycat are really low res)
-                                                switch (post.media.some(0=>o.oembed.thumbnail_url === "gfycat")) {
+                                                switch (post.media.oembed.thumbnail_url.includes("gfycat")) {
                                                     case false:
                                                         // resolve payload
                                                         let payload = {
@@ -59,7 +59,8 @@ function request(source, site, regex) {
                                                     break;
                                                     // tries again
                                                     default: ExtractRedditUrl(body, tries);
-                                            
+                                                }
+                                            break;
                                         }
                                     break;
                                 }
@@ -101,7 +102,7 @@ function request(source, site, regex) {
                             // cleans the url of the extra stuff
                             let url = posts[index].replace(/data-file-url=|"/g, "");
                             // checks if the url ends with image extensions (if it do it pushes it to an array)
-                            if ((/(\.jpg|\.png|\.gif|\.jpeg)$/ig).test(url)) cleaned.push(url);
+                            if ((/(\.jpg|\.png|\.gifv|\.mp4|\.gif|\.jpeg)$/ig).test(url)) cleaned.push(url);
                         }
                         // checks if there's any post after the cleanage (if not it reject)
                         if (cleaned.length < 1) reject({reason: "no posts", message: "Failed to find a suitable post"});
@@ -163,7 +164,7 @@ function request(source, site, regex) {
                             // cleans the post
                             let url = post[0].replace(/<meta property="og:image" content="|" \/>/g, "");
                             // tests the url
-                            switch ((/^https:\/\/img2.*?(\.jpg|\.jpeg|\.png|\.gif)$/g).test(url)) {
+                            switch ((/^https:\/\/img2.*?(/(\.jpg|\.png|\.gifv|\.mp4|\.gif|\.jpeg)$/ig).test(url)) {
                                 case true:
                                     let payload = {
                                         url: url,
