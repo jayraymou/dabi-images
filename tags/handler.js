@@ -44,6 +44,14 @@ function request(source, site, regex) {
                                                 ExtractRedditUrl(body, tries);
                                             break;
                                             
+                                                default:
+                                                // if the media thumbnail is from gfycat try again (thumbnails from gfycat are really low res)
+                                                
+                                                    // tries again
+                                                    default: ExtractRedditUrl(body, tries);
+                                                }
+                                            break;
+                                               
                                         }
                                     break;
                                 }
