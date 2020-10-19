@@ -49,8 +49,8 @@ function request(source, site, regex) {
                                                 
                                                     // tries again
                                                     default: ExtractRedditUrl(body, tries);
-                                                }
-                                            break;
+                                                
+                                            
                                                
                                         }
                                     break;
